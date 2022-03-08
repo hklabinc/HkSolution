@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HkWeb_Server", "HkWeb_Server\HkWeb_Server.csproj", "{E742D232-68C8-42F8-9307-3A83236CF0DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HkWeb_Server", "HkWeb_Server\HkWeb_Server.csproj", "{E742D232-68C8-42F8-9307-3A83236CF0DB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HkWeb_Client", "HkWeb_Client\HkWeb_Client.csproj", "{48A13E34-A673-4E01-A6B2-9149DBB51982}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hk_Models", "Hk_Models\Hk_Models.csproj", "{7C31E043-BEFA-47A9-BC0D-D640222B5826}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{E742D232-68C8-42F8-9307-3A83236CF0DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E742D232-68C8-42F8-9307-3A83236CF0DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E742D232-68C8-42F8-9307-3A83236CF0DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48A13E34-A673-4E01-A6B2-9149DBB51982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48A13E34-A673-4E01-A6B2-9149DBB51982}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48A13E34-A673-4E01-A6B2-9149DBB51982}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48A13E34-A673-4E01-A6B2-9149DBB51982}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C31E043-BEFA-47A9-BC0D-D640222B5826}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C31E043-BEFA-47A9-BC0D-D640222B5826}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C31E043-BEFA-47A9-BC0D-D640222B5826}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C31E043-BEFA-47A9-BC0D-D640222B5826}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

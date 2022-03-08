@@ -1,0 +1,65 @@
+﻿@page "/learnblazor/bindprop"
+
+<h2 class="text-success">Individual Product</h2>
+
+<div class="row">
+    <div class="col-6 border p-3">
+        <h3 class="text-primary">Product Playground</h3> <hr />
+        <div>
+            Active: <input type="checkbox" @bind-value="@Product.IsActive" checked="@(Product.IsActive ? "checked" : null)" />
+            @*Active: <input type="checkbox" @bind="@Product.IsActive" /> <br/> <br/>*@
+        </div>
+
+        <div>
+            @*Price: <input type="number" value="@Product.Price"/> <br/>
+                Price: <input type="number" @bind-value="@Product.Price" />*@
+            @*Price: <input type="number" @bind-value="@Product.Price" @bind-value:event="onchange" />  <br/>*@ @*on change is default (https://docs.microsoft.com/ko-kr/aspnet/core/blazor/components/event-handling?view=aspnetcore-6.0)*@
+            Price: <input type="number" @bind-value="@Product.Price" @bind-value:event="oninput" />
+            @*Price: <input type="number" @bind="@Product.Price" @bind:event="oninput" /> <br/>*@  @*bind-value 대신 bind만 써도 됨 (앞뒤 둘다 똑같이 bind:로 해야)*@
+        </div>
+
+        <br />
+
+        <div>
+            Product Properties:
+            <select @bind="selectedProp">
+                @foreach (var prop in Product.ProductProperties)
+                {
+                    <option value="@prop.Key">@prop.Key </option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="col-6 border p-3">
+        <h3 class="text-primary">Product Summary</h3> <hr />
+        Name: @Product.Name <br />
+        Active: @Product.IsActive <br />
+        Price: @Product.Price <br />
+        @*This Product is: @((Product.IsActive == true) ? "Active" : "Inactive") *@
+        This Product is: @(Product.IsActive ? "Active" : "Inactive")  <br />
+        Property Selected: @selectedProp
+        @if (!String.IsNullOrWhiteSpace(selectedProp))
+        {
+            <p>Property Value : @Product.ProductProperties.FirstOrDefault(u => u.Key==selectedProp).Value </p>
+        }
+    </div>
+</div>
+
+@code {
+    private string selectedProp = "";
+
+    Demo_Product Product = new()
+        {
+            Id = 1,
+            Name = "Rose Candle",
+            IsActive = true,
+            Price = 10.99,
+            ProductProperties = new List<Demo_ProductProp>()
+            {
+                new Demo_ProductProp { Id=1, Key="Color", Value="Black"},
+                new Demo_ProductProp { Id=2, Key="Flavor", Value="Rose Jasmine"},
+                new Demo_ProductProp { Id=3, Key="Size", Value="20oz"},
+            }
+        };
+}
