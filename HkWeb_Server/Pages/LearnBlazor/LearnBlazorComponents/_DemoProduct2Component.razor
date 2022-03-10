@@ -1,0 +1,48 @@
+﻿<div class="bg-light border m-1 col-5" @onclick="args => ProductSelected(args, Product.Name)">  @*클릭시 ProductSelected 실행 *@
+
+    <h4 class="text-secondary">Product - @Product.Id</h4>
+    <input type="checkbox" @onchange="FavoriteUpdated" /> Add to Favorite <br /><br />      @*checkbox 변경시 아래 선언된 FavoriteUpdated 함수 실행*@
+    Name - @Product.Name <br />
+    Show Properties:
+    <input type="checkbox" @bind-value="@Product.IsActive" checked="@(Product.IsActive ? "checked" : null)" />
+
+    @if (Product.IsActive)
+    {
+        @foreach (var property in Product.ProductProperties)
+        {
+            <p>@property.Key - @property.Value </p>
+        }
+    }
+    <br>
+
+    <_EditDeleteButton IsActive="@Product.IsActive">    @*자식 컴포넌트 _EditDeleteButton에게 IsActive 값을 넘겨줌 *@
+    </_EditDeleteButton>
+</div>
+
+
+
+@code {
+    /* 부모 컴포넌트로 부터 값을 받아올 때 */
+    [Parameter]       /*상위 component (DemoProduct.razor)로 부터 IsActive 값 전달을 위하여 [Paramter] 태그 선언 필요*/
+    public Demo_Product Product { get; set; }   // 부모 component로 부터 값을 받아옴 
+
+
+    /* 부모 컴포넌트로 값을 넘길때 - EventCallback 함수 사용 */
+    [Parameter] 
+    public EventCallback<bool> OnFavoriteUpdated { get; set; }  // 파라미터로 OnFavoriteUpdated 값 (=부모 component에서 실행되는 (인자가 bool인)함수를 알려줌)을 가져오기 위함
+
+    private async Task FavoriteUpdated(ChangeEventArgs e)       // Event callback 함수 (onchange는 ChangeEventArgs로 받아야)
+    {
+        await OnFavoriteUpdated.InvokeAsync((bool)e.Value);     // FavoriteUpdated를 호출시키는 checkbox의 Value 값을 InvokeAsync를 통해 부모 component에 넘겨줌 
+    }
+
+
+    /* 부모 컴포넌트로 값을 넘길때 - EventCallback 함수 사용 */
+    [Parameter] 
+    public EventCallback<string> OnProductSelected { get; set; }  // 파라미터로 OnProductSelected 값 (=부모 component에서 실행되는 (인자가 string인)함수를 알려줌)을 가져오기 위함
+
+    private async Task ProductSelected(MouseEventArgs e, string name)       // Event callback 함수 (onclick은 MouseEventArgs로 받아야)
+    {
+        await OnProductSelected.InvokeAsync(name);     // ProductSelected를 호출시킬 때 Product.Name값을 InvokeAsync를 통해 부모 component에 넘겨줌 
+    }
+}

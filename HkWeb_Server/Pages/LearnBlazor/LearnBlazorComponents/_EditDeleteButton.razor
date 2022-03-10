@@ -1,0 +1,10 @@
+﻿@if (IsActive)
+{
+    <input type="button" class="btn btn-danger" style="width:100px;" value="Delete" />
+    <input type="button" class="btn btn-success" style="width:100px;" value="Edit" />
+}
+
+@code {
+    [Parameter]       /*상위 component (DemoProduct.razor)로 부터 IsActive 값 전달을 위하여 [Parameter] 태그 선언 필요*/
+    public bool IsActive { get; set; }
+}
