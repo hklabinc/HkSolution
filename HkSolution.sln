@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HkWeb_Server", "HkWeb_Serve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HkWeb_Client", "HkWeb_Client\HkWeb_Client.csproj", "{48A13E34-A673-4E01-A6B2-9149DBB51982}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hk_Models", "Hk_Models\Hk_Models.csproj", "{7C31E043-BEFA-47A9-BC0D-D640222B5826}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hk_Models", "Hk_Models\Hk_Models.csproj", "{7C31E043-BEFA-47A9-BC0D-D640222B5826}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

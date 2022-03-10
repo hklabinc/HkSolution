@@ -1,0 +1,19 @@
+﻿<div class="row">
+    <h4 class="text-primary pt-3">Grand Child Component</h4>
+    <p>There is a message - @MessageForGrandChild</p>
+    <p>Lucky Number - @LuckyNumber</p>
+</div>
+
+@code {
+    //[CascadingParameter]       // Grand Parent로 부터 파라미터를 내려받을때는 CascadingParameter를 써야 함
+    //public string MessageForGrandChild { get; set; }
+
+    //[CascadingParameter]       // Grand Parent로 부터 파라미터를 내려받을때는 CascadingParameter를 써야 함
+    //public int LuckyNumber { get; set; }
+
+    [CascadingParameter (Name = "message")]       // Grand Parent로 부터 파라미터를 내려받을때는 CascadingParameter를 써야 함
+    public string MessageForGrandChild { get; set; }
+
+    [CascadingParameter (Name = "number")]       // Grand Parent로 부터 파라미터를 내려받을때는 CascadingParameter를 써야 함
+    public string LuckyNumber { get; set; }
+}

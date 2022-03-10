@@ -1,0 +1,50 @@
+﻿@page "/learnBlazor/parentComponent"
+
+<h3>Parent Child Relation</h3>
+
+<CascadingValue Value="@MessageForGrandChild" Name="message">
+    @* Grand Child에게 까지 파라미터를 넘겨주기 위함 *@
+    <CascadingValue Value="@LuckyNumber" Name="number">
+
+        <_ChildComponent OnButtonClick="ShowMessage" Title="This title is passed as parameter from Parent Component">
+            @*Render Fragement From Parent! WooHoo!*@                            @*ChildComponent에게 Fragment로 내용 전달 가능!*@
+            <ChildContent>Render Fragement From Parent! WooHoo!</ChildContent>   @*<ChildContent>을 붙여서 명시적으로 이렇게 써줘도 됨*@
+            <DangerChildContent>Danger Content from Render Fragement! WooHoo!</DangerChildContent>
+        </_ChildComponent>
+
+    </CascadingValue>
+</CascadingValue>
+
+<p><b>@messageText</b></p>
+
+@*<_AnotherChildComponent Placeholder="Placeholder from Parent" Required="required" MaxLength="5">
+    </_AnotherChildComponent>*@
+
+@*<_AnotherChildComponent InputAttributes="InputAttributesFromParent">
+    </_AnotherChildComponent>*@
+
+<_AnotherChildComponent placeholder="Placeholder from Parent" maxlength="5">
+</_AnotherChildComponent>
+
+@*<_ChildComponent Title="This is second child component" >
+    </_ChildComponent>*@
+
+@code {
+    public string MessageForGrandChild = "This message is from your grand parent (ParentComponent)";
+    public string LuckyNumber = "7";
+
+    public Dictionary<string, object> InputAttributesFromParent { get; set; } = new Dictionary<string, object>()
+    {
+        {"required", "required"},
+        {"placeholder", "Enter name from Parent"},
+        {"maxlength", 5}
+    };
+
+    public string messageText = "";
+
+    private void ShowMessage()
+    {
+        messageText = "HK button clicked from Child Component";
+    }
+
+}

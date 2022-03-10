@@ -3,6 +3,9 @@
     <h4 class="text-secondary">Product - @Product.Id</h4>
     <input type="checkbox" @onchange="FavoriteUpdated" /> Add to Favorite <br /><br />      @*checkbox 변경시 아래 선언된 FavoriteUpdated 함수 실행*@
     Name - @Product.Name <br />
+
+    <p>RenderFragment from Parent - @FirstFragment @SecondFragment</p>
+
     Show Properties:
     <input type="checkbox" @bind-value="@Product.IsActive" checked="@(Product.IsActive ? "checked" : null)" />
 
@@ -45,4 +48,11 @@
     {
         await OnProductSelected.InvokeAsync(name);     // ProductSelected를 호출시킬 때 Product.Name값을 InvokeAsync를 통해 부모 component에 넘겨줌 
     }
+
+
+    [Parameter]
+    public RenderFragment FirstFragment { get; set; }
+
+    [Parameter]
+    public RenderFragment SecondFragment { get; set; }
 }

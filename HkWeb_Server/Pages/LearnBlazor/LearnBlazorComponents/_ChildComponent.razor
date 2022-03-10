@@ -1,0 +1,43 @@
+﻿<div>
+    <div class="alert alert-info">@Title</div>
+    <div class="alert alert-success">
+        @if (DangerChildContent != null)
+        {
+            <span>@DangerChildContent</span>
+        }
+        else
+        {
+            @if (ChildContent != null)
+            {
+                <span>@ChildContent</span>
+            }
+            else
+            {
+                <span>Hello, from Empty Render Fragment</span>
+            }
+        }
+
+    </div>
+
+    <button class="btn btn-danger" @onclick="OnButtonClick">Button to be clicked</button>
+
+    <_GrandChildComponent>
+    </_GrandChildComponent>
+</div>
+
+@code {
+    [Parameter]
+    public string MessageForGrandChild { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment DangerChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback OnButtonClick { get; set; }    // 간단히 버튼 클릭한 것 정도 parent에게 보낼때는 method 안만들고 (InvokeAsync 함수 안쓰고) 이렇게 해도 됨
+}

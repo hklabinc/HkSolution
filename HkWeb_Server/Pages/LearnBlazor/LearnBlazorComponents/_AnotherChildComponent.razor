@@ -1,0 +1,28 @@
+﻿<div>
+    <h4 class="text-primary pt-3">Another Child Component</h4>
+    @*<input id="name" placeholder="@Placeholder" required="@Required" maxlength="@MaxLength"/>*@
+    <input id="name" @attributes="InputAttributes"/>
+</div>
+
+@code {
+    /* 1. Parent에서 Child로 하나씩 넘겨주는 방법 */
+    //[Parameter]
+    //public string Placeholder { get; set; } = "Initial text";
+    //[Parameter]
+    //public string Required { get; set; } = "required";
+    //[Parameter]
+    //public string MaxLength { get; set; } = "10";
+
+    /* 2. Parent에서 Child로 한꺼번에 넘겨주는 방법 */
+    //[Parameter]
+    //public Dictionary<string, object> InputAttributes { get; set; } =  new Dictionary<string, object>()
+    //{
+    //    {"required", "required"},
+    //    {"placeholder", "Initial text"},        // default 값을 여기에 써줌
+    //    {"maxlength", 10}                       // default 값을 여기에 써줌
+    //};
+
+    /* 3. Parent에서 Child로 변경된 것만 넘겨주는 방법 */
+    [Parameter(CaptureUnmatchedValues = true)]      // 변경된것만 찾아서 처리 
+    public Dictionary<string, object> InputAttributes { get; set; } =  new Dictionary<string, object>();
+}
