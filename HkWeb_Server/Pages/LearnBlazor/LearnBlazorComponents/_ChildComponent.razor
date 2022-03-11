@@ -1,4 +1,6 @@
-﻿<div>
+﻿@inject IJSRuntime _JsRuntime
+
+<div>
     <div class="alert alert-info">@Title</div>
     <div class="alert alert-success">
         @if (DangerChildContent != null)
@@ -40,4 +42,19 @@
 
     [Parameter]
     public EventCallback OnButtonClick { get; set; }    // 간단히 버튼 클릭한 것 정도 parent에게 보낼때는 method 안만들고 (InvokeAsync 함수 안쓰고) 이렇게 해도 됨
+
+
+    public async Task ToastrSuccess()
+    {
+        await _JsRuntime.ToastrSuccess("Operation Success");        
+    }
+    public async Task ToastrFailure()
+    {
+        await _JsRuntime.ToastrFailure("Operation Error");        
+    }
+
+    public async Task ToastrWarning()
+    {
+        await _JsRuntime.ToastrWarning();        
+    }
 }

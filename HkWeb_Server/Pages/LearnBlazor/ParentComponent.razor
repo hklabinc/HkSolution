@@ -3,10 +3,11 @@
 <h3>Parent Child Relation</h3>
 
 <CascadingValue Value="@MessageForGrandChild" Name="message">
-    @* Grand Child에게 까지 파라미터를 넘겨주기 위함 *@
+    @* Grand Child에게 까지 파라미터를 넘겨주기 위해서 CascadingValue를 사용 *@
     <CascadingValue Value="@LuckyNumber" Name="number">
 
-        <_ChildComponent OnButtonClick="ShowMessage" Title="This title is passed as parameter from Parent Component">
+        @*Child component에 있는 메서드들을 Parent에서 호출할 때 @ref="childComp" 써줘야! *@
+        <_ChildComponent @ref="childComp" OnButtonClick="ShowMessage" Title="This title is passed as parameter from Parent Component">
             @*Render Fragement From Parent! WooHoo!*@                            @*ChildComponent에게 Fragment로 내용 전달 가능!*@
             <ChildContent>Render Fragement From Parent! WooHoo!</ChildContent>   @*<ChildContent>을 붙여서 명시적으로 이렇게 써줘도 됨*@
             <DangerChildContent>Danger Content from Render Fragement! WooHoo!</DangerChildContent>
@@ -29,7 +30,19 @@
 @*<_ChildComponent Title="This is second child component" >
     </_ChildComponent>*@
 
+
+@*Child component에 있는 메서드들을 Parent에서 호출할 때*@
+<div class="row">
+    <button class="btn btn-success m-2" style="width:200px;" @onclick="() => childComp.ToastrSuccess()">Toastr Success</button>
+    <button class="btn btn-danger m-2" style="width:200px;" @onclick="() => childComp.ToastrFailure()">Toastr Failure</button>
+    <button class="btn btn-light m-2" style="width:200px;" @onclick="() => childComp.ToastrWarning()">Toastr Warning</button>
+</div>
+
+
+
 @code {
+    private _ChildComponent childComp;      // 이걸 이용해서 Child component에 있는 메서드들을 Parent에서 호출할 수 있음
+
     public string MessageForGrandChild = "This message is from your grand parent (ParentComponent)";
     public string LuckyNumber = "7";
 

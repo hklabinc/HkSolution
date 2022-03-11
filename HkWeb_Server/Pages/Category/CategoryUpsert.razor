@@ -1,0 +1,102 @@
+﻿@page "/category/create"
+@page "/category/edit/{id:int}"
+@*같은 component에 page 두개 - {id:int}로 값을 받아들임*@
+
+@inject ICategoryRepository _categoryRepository
+@inject NavigationManager _navigationManager
+
+<div class="row my-2">
+
+    <h3 class="card-title text-primary mb-3 ml-3">@Title Category</h3>
+
+    <div class="col-10">
+
+        @if (IsLoading)
+        {
+            <div class="text-center">
+                <img src="/images/loading.gif">
+            </div>
+        }
+        else
+        {
+            <EditForm Model="Category" OnValidSubmit="UpsertCategory">
+                @* Model=""을 사용하면 Category 모델을 binding하여 form을 만들어줌 *@
+                <DataAnnotationsValidator />     @*Validation을 할때 선언*@
+                @*<ValidationSummary/>*@        @*위에서 전체적으로 Validation을 수행 (요약정보 보여줌)*@
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <InputText @bind-Value="Category.Name" class="form-control"></InputText>
+                    <ValidationMessage For="()=>Category.Name"></ValidationMessage>     @*개별 Validation을 할때 이렇게*@
+                </div>
+
+                <div class="form-group py-2">
+                    <button class="btn btn-primary">@Title</button>
+                    <NavLink href="/category" class="btn btn-secondary">Back to Index</NavLink>
+                </div>
+            </EditForm>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private CategoryDTO Category { get; set; } = new CategoryDTO();
+    private string Title { get; set; } = "Create";
+    public bool IsLoading { get; set; }
+
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    if (Id == 0)    // create
+    //    {
+    //        IsLoading = false;
+    //    }
+    //    else            // update
+    //    {
+    //        Title = "Update";
+    //        await Task.Run(LoadCategories);         // 다른 쓰레드로 돌리기 위해 아래와 같이 LoadCategories를 분리함
+    //    }
+    //}
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (Id == 0)    // create
+            {
+                IsLoading = false;
+            }
+            else            // update
+            {
+                Title = "Update";
+                await LoadCategories();         // 다른 쓰레드로 돌리기 위해 아래와 같이 LoadCategories를 분리함
+            }
+        }
+
+    }
+
+    private async Task LoadCategories()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        Category = await _categoryRepository.Get(Id);
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+
+    private async Task UpsertCategory()
+    {
+        if (Id == 0)    // create
+        {
+            await _categoryRepository.Create(Category);
+        }
+        else            // update
+        {
+            await _categoryRepository.Update(Category);
+        }
+        _navigationManager.NavigateTo("category");
+    }
+}
