@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//builder.WebHost.ConfigureKestrel(options => options.ListenAnyIP(5003));
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
@@ -18,6 +20,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();  // injection을 위해 선언 필요
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
+
+//builder.WebHost.UseUrls("http://*:60080;https://*:60081");
+builder.WebHost.UseUrls("http://*:60080");       // Set http port number 
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
