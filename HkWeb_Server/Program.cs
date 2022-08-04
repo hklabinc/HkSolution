@@ -14,15 +14,24 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();        // injection을 위해 선언 필요
+
+/* To use mariadb */
+var connectionString = builder.Configuration.GetConnectionString("ChhDBConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-    );
+    options.UseMySql(connectionString,
+        ServerVersion.AutoDetect(connectionString)));
+
+/* To use default localDB */
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+//  );
+
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();  // injection을 위해 선언 필요
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
-//builder.WebHost.UseUrls("http://*:60080;https://*:60081");
-builder.WebHost.UseUrls("http://*:60080");       // Set http port number 
+builder.WebHost.UseUrls("http://*:60080;https://*:60081");
+//builder.WebHost.UseUrls("http://*:60080");       // Set http port number 
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
