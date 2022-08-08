@@ -30,8 +30,8 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();  // injec
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
-builder.WebHost.UseUrls("http://*:60080;https://*:60081");
-//builder.WebHost.UseUrls("http://*:60080");       // Set http port number 
+builder.WebHost.UseUrls("http://*:8082;https://*:8083");
+//builder.WebHost.UseUrls("http://*:8082");       // Set http port number 
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
